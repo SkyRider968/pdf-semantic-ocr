@@ -21,6 +21,31 @@ Default MLX model:
 `recognize-tables --model` also accepts a local compatible model directory.
 The first selected engine invocation may download weights through upstream libraries.
 
+## License observations (2026-10-11)
+
+The DocLayout model card declares Apache-2.0 at revision
+`8c3299a30b8ff29a1503c4431b035b93220f7b11`; its inference code uses AGPL-3.0.
+The MLX card declares Apache-2.0 at
+`c8987b277bdd8aaec8bd265d154f391bd03ad165`, identifying
+`PaddlePaddle/PaddleOCR-VL-1.6` as its base. The base model has a full Apache-2.0
+LICENSE at `c5630abae1d940eafe0697512a0325494b02ab42`.
+These are checked upstream revisions, not revisions pinned by the current CLI.
+Resolve a local model snapshot for deployments requiring exact version control.
+
+RapidOCR 3.10.0's `default_models.yaml` selects these ONNX weights from
+`RapidAI/RapidOCR` on ModelScope, revision `v3.10.0`. Its README declares Apache 2.0:
+
+| Role | File | SHA-256 |
+| --- | --- | --- |
+| Detection | `ch_PP-OCRv5_det_server.onnx` | `0f8846b1d4bba223a2a2f9d9b44022fbc22cc019051a602b41a7fda9667e4cad` |
+| Chinese/mixed recognition | `PP-OCRv6_rec_medium.onnx` | `eef444829dbbe18d7fea59a3f6eb75647518d2b3a9568d27c92e42940204894b` |
+| English recognition | `en_PP-OCRv5_rec_mobile.onnx` | `c3461add59bb4323ecba96a492ab75e06dda42467c9e3d0c18db5d1d21924be8` |
+
+The project allows newer compatible RapidOCR versions, so their selected weights
+may change. A repository-level declaration is not an independent verification of
+training-data rights. See the [review](legal-review.zh-CN.md) for source links and
+remaining distribution/deployment considerations.
+
 Results are candidates. The native ruled-table fallback rejects missing internal
 boundaries instead of inventing merged cells. Borderless or merged raster tables
 usually require a dedicated model and source-image review.

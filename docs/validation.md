@@ -39,6 +39,12 @@ does not exclude shared omissions. Original full-page renders were also viewed.
 
 The local full suite passed 37 tests including the opt-in real OCR test. The
 portable suite passed 36 tests with that model test explicitly skipped.
+During the onboarding review, a second fresh Python 3.12 virtual environment
+installed the source package with only `[ocr]`. The documented `doctor`, digital
+extraction/evaluation and first-scan extraction/evaluation sequence completed:
+317 reference characters / 19 exact cells and 144 reference characters / 12 exact
+cells respectively, both 100%. This verifies the basic installation route on
+local macOS; it is a repeat of existing fixtures, not a new independent benchmark.
 The automated suite covers real native PDF extraction, merged headers, figure
 labels, detected crops, column ordering, comparison symbols, invalid spans,
 wrong-row/column model candidates, stale candidates, source-line accounting,

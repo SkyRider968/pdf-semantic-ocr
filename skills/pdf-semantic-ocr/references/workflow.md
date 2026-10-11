@@ -1,9 +1,14 @@
 # Commands and engine selection
 
-Install the repository with `python -m pip install '.[ocr]'` or a release wheel.
+Install the CLI separately from the skill: from an activated virtual environment
+in the source checkout, run `python -m pip install '.[ocr]'`; alternatively use
+`python -m pip install 'pdf_semantic_ocr-0.1.0-py3-none-any.whl[ocr]'` for a downloaded
+release wheel. The wheel does not contain the demo PDFs. This release is not on PyPI.
 Run `pdf-semantic-ocr doctor`. Native digital text extraction needs no OCR extras.
-For complex scanned layouts add `[layout]`; for macOS crosscheck add `[vision]`;
-for Apple Silicon table recognition add `[mlx]`.
+Install selected extras before using their commands: `python -m pip install '.[layout]'`
+for complex scanned layouts, `'.[vision]'` for macOS crosscheck, or `'.[mlx]'` for
+Apple Silicon table recognition. When using a wheel, put the extra on its filename
+instead of `.`. Windows/Linux table engines can connect through `import-candidate`.
 
 ```bash
 pdf-semantic-ocr extract INPUT.pdf --output RUN --pages 1-3,20 --dpi 250

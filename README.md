@@ -12,15 +12,21 @@ table relationships and complete figure detection require separate evidence.
 
 ## Install
 
-Python 3.10+:
+Python 3.10+. Open a terminal in the downloaded/cloned source directory, then
+create a virtual environment (macOS/Linux):
 
 ```bash
+python3 -m venv .venv
+source .venv/bin/activate
 python -m pip install '.[ocr]'
 pdf-semantic-ocr doctor
 ```
 
-Run the command from this repository after cloning. For a downloaded wheel,
-use `pip install 'pdf_semantic_ocr-0.1.0-py3-none-any.whl[ocr]'` instead.
+On Windows, use `py -m venv .venv` and `.venv\Scripts\Activate.ps1` in PowerShell.
+For a downloaded wheel, replace the install command with
+`python -m pip install 'pdf_semantic_ocr-0.1.0-py3-none-any.whl[ocr]'`.
+The examples below require the source archive/checkout; they are not in the wheel.
+This release is not currently published on PyPI.
 Digital PDFs with a useful text layer only need `pip install .`.
 Optional extras: `layout` (DocLayout-YOLO), `vision` (macOS independent OCR),
 `mlx` (Apple Silicon table recognition), `dev` (tests/build).
@@ -32,22 +38,52 @@ Optional extras: `layout` (DocLayout-YOLO), `vision` (macOS independent OCR),
 pdf-semantic-ocr extract examples/digital.pdf --output runs/digital --ocr never
 pdf-semantic-ocr evaluate runs/digital --gold examples/digital_gold.json --minimum 99
 
-# Raster scans: real OCR. Models are downloaded by the selected backend.
-pdf-semantic-ocr extract examples/scanned.pdf --output runs/scanned --language auto
+# Raster scans: real OCR, plus a simple ruled table. First use downloads models.
+pdf-semantic-ocr extract examples/holdout_scanned.pdf --output runs/first-scan --language auto
+pdf-semantic-ocr evaluate runs/first-scan --gold examples/holdout_scanned_gold.json --minimum 99
+```
 
+Successful evaluation exits 0 and writes `evaluation.json`. The supplied digital
+and first-scan references scored 100% character accuracy/completeness in our local
+validation. Open `learning.md` and `images/pages/` together to see the result and
+its source. A passing example does not certify your own document. See
+[the validation report](docs/validation.md) for sample sizes and known failures.
+
+## Complex documents and optional backends
+
+```bash
 # Recommended trained layout model for complex scanned books.
+python -m pip install '.[layout]'
 pdf-semantic-ocr fetch-layout --output models/doclayout.pt
-pdf-semantic-ocr extract book.pdf --output runs/book --layout doclayout \
-  --layout-weights models/doclayout.pt --dpi 250
+pdf-semantic-ocr extract book.pdf --output runs/book --pages 1-3,20 \
+  --layout doclayout --layout-weights models/doclayout.pt --dpi 250
+```
 
+Replace `book.pdf` and choose representative pages that exist in your PDF. Review
+that trial, then repeat the same command without `--pages` to process all pages.
+DocLayout installs PyTorch and downloads a layout model; installation is larger
+than the basic OCR path. These commands use the same activated environment.
+
+```bash
 # Optional independent audit on macOS; do not use the same OCR engine twice.
+python -m pip install '.[vision]'
 pdf-semantic-ocr crosscheck runs/book --backend vision
 
 # Optional table reconstruction on Apple Silicon: candidates first, then gates.
+python -m pip install '.[mlx]'
 pdf-semantic-ocr recognize-tables runs/book --pages 20-30
 pdf-semantic-ocr integrate runs/book
+```
 
+Choose table page numbers present in your run. The default MLX model card lists
+about 0.68 GB of weights, excluding runtime dependencies. Windows/Linux can
+import another engine's OTSL using `import-candidate`; no portable table model is
+bundled. The merged-header scan `examples/scanned.pdf` requires this more advanced
+table path to reproduce the reported exact-cell result.
+
+```bash
 # Review the original image, record a patch, apply and reassemble.
+# repair.json must be created from source evidence using docs/schema.md.
 pdf-semantic-ocr repair runs/book repair.json
 pdf-semantic-ocr sample runs/book --count 20 --seed 42
 pdf-semantic-ocr audit runs/book
@@ -139,3 +175,6 @@ Real OCR smoke tests are opt-in because they download models; see validation doc
 AGPL-3.0-or-later. Dependencies and model weights retain their own licenses.
 See [third-party notices](THIRD_PARTY_NOTICES.md). No source books, extracted book
 text, private paths, credentials or model weights are included.
+The software license grants no rights to input documents or their extracted
+content. AGPL obligations matter when distributing integrations or providing a
+network service; see the dated [license and publication review](docs/legal-review.zh-CN.md).
