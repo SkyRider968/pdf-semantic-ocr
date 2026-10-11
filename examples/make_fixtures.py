@@ -118,11 +118,14 @@ def main():
     mixed.new_page(width=600, height=780)
     mixed.save(ROOT / "mixed.pdf", deflate=True)
     for name in ("digital", "scanned"):
-        (ROOT / f"{name}_gold.json").write_text(json.dumps(gold(ROOT / f"{name}.pdf"), ensure_ascii=False, indent=2) + "\n")
+        (ROOT / f"{name}_gold.json").write_text(
+            json.dumps(gold(ROOT / f"{name}.pdf"), ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8", newline="\n")
     first, second = gold(ROOT / "mixed.pdf"), gold(ROOT / "mixed.pdf", 3, 4)
     first["samples"] += second["samples"]
     first["tables"] += second["tables"]
-    (ROOT / "mixed_gold.json").write_text(json.dumps(first, ensure_ascii=False, indent=2) + "\n")
+    (ROOT / "mixed_gold.json").write_text(
+        json.dumps(first, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
     digital.close()
     scanned.close()
     mixed.close()

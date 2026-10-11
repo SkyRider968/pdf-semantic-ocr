@@ -4,14 +4,14 @@ Extract complex PDFs into traceable learning text. Keep body text, figure text a
 table structure separate; stage model results before accepting them; repair a
 specific page without rerunning the book.
 
-**Status: early release (0.1.1).** This is an extraction and audit workflow, not a
+**Status: early release (0.1.2).** This is an extraction and audit workflow, not a
 guarantee of 99% accuracy on arbitrary PDFs. Character recognition, reading order,
 table relationships and complete figure detection require separate evidence.
 
 中文文档：[使用与验收 SOP](docs/SOP.zh-CN.md)。
 
 [GitHub repository](https://github.com/SkyRider968/pdf-semantic-ocr) ·
-[0.1.1 release](https://github.com/SkyRider968/pdf-semantic-ocr/releases/tag/v0.1.1)
+[0.1.2 release](https://github.com/SkyRider968/pdf-semantic-ocr/releases/tag/v0.1.2)
 
 ## Install
 
@@ -27,11 +27,11 @@ pdf-semantic-ocr doctor
 
 On Windows, use `py -m venv .venv` and `.venv\Scripts\Activate.ps1` in PowerShell.
 For a downloaded wheel, replace the install command with
-`python -m pip install 'pdf_semantic_ocr-0.1.1-py3-none-any.whl[ocr]'`.
+`python -m pip install 'pdf_semantic_ocr-0.1.2-py3-none-any.whl[ocr]'`.
 You can also install the released wheel directly in your activated environment:
 
 ```bash
-python -m pip install 'pdf-semantic-ocr[ocr] @ https://github.com/SkyRider968/pdf-semantic-ocr/releases/download/v0.1.1/pdf_semantic_ocr-0.1.1-py3-none-any.whl'
+python -m pip install 'pdf-semantic-ocr[ocr] @ https://github.com/SkyRider968/pdf-semantic-ocr/releases/download/v0.1.2/pdf_semantic_ocr-0.1.2-py3-none-any.whl'
 pdf-semantic-ocr demo --output first-ocr
 ```
 

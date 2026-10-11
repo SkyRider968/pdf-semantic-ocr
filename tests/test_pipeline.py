@@ -11,7 +11,7 @@ from pdf_semantic_ocr.export import export
 from pdf_semantic_ocr.extract import extract
 from pdf_semantic_ocr.patches import apply_patch
 from pdf_semantic_ocr.schema import validate_page
-from pdf_semantic_ocr.storage import read_json, write_json, parse_pages, file_hash
+from pdf_semantic_ocr.storage import read_json, write_json, write_text, parse_pages, file_hash
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -33,8 +33,8 @@ def test_actual_pdf_text_and_merged_tables_match_source_gold(run):
 
 
 def test_figure_labels_are_preserved_separately_from_body(run):
-    body = (run / "body.md").read_text()
-    auxiliary = (run / "figures_tables.md").read_text()
+    body = (run / "body.md").read_text(encoding="utf-8")
+    auxiliary = (run / "figures_tables.md").read_text(encoding="utf-8")
     assert "Stimulus" not in body
     assert "Recovery" in auxiliary and "Stimulus" in auxiliary
     assert "Figure 1." in auxiliary and "Figure 1." not in body
@@ -140,6 +140,15 @@ def test_evaluation_distinguishes_substitution_from_completeness():
     assert report["accuracy_percent"] == 75
     assert report["completeness_percent"] == 100
     assert report["correct_recall_percent"] == 75
+
+
+def test_text_storage_uses_utf8_and_identical_lf_bytes_on_every_platform(tmp_path):
+    path = tmp_path / "mixed.md"
+    write_text(path, "中文与 English\nSecond line\n")
+    assert path.read_bytes() == "中文与 English\nSecond line\n".encode("utf-8")
+    write_json(tmp_path / "mixed.json", {"text": "中文"})
+    assert b"\r\n" not in (tmp_path / "mixed.json").read_bytes()
+    assert read_json(tmp_path / "mixed.json") == {"text": "中文"}
 
 
 def test_invalid_grid_patch_is_rejected_without_losing_lines(run, tmp_path):

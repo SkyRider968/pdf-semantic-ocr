@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "pdf-semantic-ocr"
-version = "0.1.1"
+version = "0.1.2"
 description = "Traceable PDF text and table extraction with evidence gates and targeted repairs"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -27,7 +27,7 @@ pdf-semantic-ocr = "pdf_semantic_ocr.cli:main"
 packages = ["src/pdf_semantic_ocr"]
 
 [tool.hatch.build.targets.sdist]
-include = ["/src", "/tests", "/examples", "/docs", "/skills", "/scripts", "/README.md", "/LICENSE", "/LICENSES", "/THIRD_PARTY_NOTICES.md", "/pyproject.toml"]
+include = ["/src", "/tests", "/examples", "/docs", "/skills", "/scripts", "/README.md", "/LICENSE", "/LICENSES", "/THIRD_PARTY_NOTICES.md", "/pyproject.toml", "/.gitattributes"]
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]

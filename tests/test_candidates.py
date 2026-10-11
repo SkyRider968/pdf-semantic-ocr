@@ -17,7 +17,7 @@ def make_run(tmp_path):
     extract(ROOT / "examples/digital.pdf", run, ocr="never", pages="1")
     table = next(r for r in read_json(run / "pages/0001.json")["regions"] if r["kind"] == "table")
     path = tmp_path / "table.otsl"
-    path.write_text(OTSL)
+    path.write_text(OTSL, encoding="utf-8", newline="\n")
     return run, table, path
 
 

@@ -130,6 +130,6 @@ def test_real_public_brochure_end_to_end(tmp_path):
     run = tmp_path / "run"
     page = read_json(run / "pages/0001.json")
     assert page["used_ocr"] and page["primary_engine"] == "rapidocr"
-    assert "MyPlate.gov" not in (run / "body.md").read_text()
-    assert "MyPlate.gov" in (run / "figures_tables.md").read_text()
+    assert "MyPlate.gov" not in (run / "body.md").read_text(encoding="utf-8")
+    assert "MyPlate.gov" in (run / "figures_tables.md").read_text(encoding="utf-8")
     assert (run / "preview.html").exists()

@@ -2,7 +2,7 @@
 
 Install the CLI separately from the skill: from an activated virtual environment
 in the source checkout, run `python -m pip install '.[ocr]'`; alternatively use
-`python -m pip install 'pdf_semantic_ocr-0.1.1-py3-none-any.whl[ocr]'` for a downloaded
+`python -m pip install 'pdf_semantic_ocr-0.1.2-py3-none-any.whl[ocr]'` for a downloaded
 release wheel. The wheel contains the public USDA demo; synthetic fixtures require the source archive. This release is not on PyPI.
 Run `pdf-semantic-ocr doctor`. For first-run validation, use
 `pdf-semantic-ocr demo --output first-ocr` and open `first-ocr/preview.html`.

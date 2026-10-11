@@ -1,0 +1,4 @@
+* text=auto eol=lf
+*.pdf binary
+# Provenance hashes bind these packaged resources to their exact bytes.
+src/pdf_semantic_ocr/assets/** -text

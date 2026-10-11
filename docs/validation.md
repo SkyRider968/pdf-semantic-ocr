@@ -1,4 +1,4 @@
-# Release validation: 0.1.1
+# Release validation: 0.1.2
 
 Validated on Apple Silicon macOS, Python 3.12, 2026-10-11. Remote CI results are available separately under
 [GitHub Actions](https://github.com/SkyRider968/pdf-semantic-ocr/actions); local
@@ -59,13 +59,14 @@ locally; it is not a universal installation/runtime guarantee.
 
 ## Tests, packaging and evidence
 
-The current complete local suite passed **46 tests**, including both real-inference
-smoke tests. Portable tests pass 44 with those two explicitly skipped. Tests cover
+The current complete local suite passed **47 tests**, including both real-inference
+smoke tests. Portable tests pass 45 with those two explicitly skipped. Tests cover
 raster resource/no-text-layer verification, source hashes, uneven columns, empty
 photo interference, badge/heading distinction, ONNX letterboxing and invalid
 outputs, checksum/atomic model cache, network failure cleanup, HTML escaping and
 CLI quality-failure exit status, in addition to the existing extraction/table/repair
-suite. Ruff and skill validation pass. Wheel/sdist contain all five demo resources
+suite. A mixed Chinese/English byte-level regression verifies UTF-8 and LF output
+on every platform; bundled reference assets are excluded from Git newline conversion. Ruff and skill validation pass. Wheel/sdist contain all five demo resources
 and no user-provided documents, local runs, credentials or model weights. Rebuilding the
 five resources from the official original reproduces every bundled SHA-256.
 
@@ -85,7 +86,7 @@ acceptance. This single English brochure contains no table; Chinese, merged-tabl
 and mixed-layout checks remain separate.
 
 The following is the retained 0.1.0 validation record. Its MLX/PyTorch results
-are historical measurements, not reruns of those optional engines for 0.1.1.
+are historical measurements, not reruns of those optional engines for 0.1.2.
 
 ---
 

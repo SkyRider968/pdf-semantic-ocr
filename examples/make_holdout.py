@@ -53,7 +53,8 @@ def main():
                             "split": "synthetic_forward",
                             "cells": [{"row": r, "column": c, "text": v} for r, row in enumerate(VALUES)
                                       for c, v in enumerate(row)]}]}
-        (ROOT / f"{name}_gold.json").write_text(json.dumps(gold, ensure_ascii=False, indent=2) + "\n")
+        (ROOT / f"{name}_gold.json").write_text(
+            json.dumps(gold, ensure_ascii=False, indent=2) + "\n", encoding="utf-8", newline="\n")
     doc.close()
     scanned.close()
 

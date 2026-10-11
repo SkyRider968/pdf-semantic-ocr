@@ -27,7 +27,8 @@ def main():
              f"pdf_semantic_ocr-{__version__}.tar.gz", archive.name, "SOP.zh-CN.md", "validation.md"}
     files = sorted(p for p in output.iterdir() if p.is_file() and p.name in names)
     (output / "SHA256SUMS").write_text("".join(
-        hashlib.sha256(p.read_bytes()).hexdigest() + "  " + p.name + "\n" for p in files))
+        hashlib.sha256(p.read_bytes()).hexdigest() + "  " + p.name + "\n" for p in files),
+        encoding="utf-8", newline="\n")
     print("Release artifacts: " + ", ".join(p.name for p in files))
 
 
