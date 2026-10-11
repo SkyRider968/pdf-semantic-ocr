@@ -1,0 +1,93 @@
+{
+  "pdf_sha256": "9aa3a27d3c940662a65fa35ec6e9033427415ed5e95a91ed00738c5611104818",
+  "provenance": "Original forward-test source declarations",
+  "samples": [
+    {
+      "id": "mixed_language_paragraphs",
+      "page": 1,
+      "bbox": [
+        0.04,
+        0.12,
+        0.98,
+        0.3
+      ],
+      "reference": "A useful record separates observations from conclusions.\nEvery correction needs a location and an explicit reason.\n工具核验关注文字是否遗漏，以及关系是否正确。\n抽检成绩只代表样本，不能证明每一页都完全正确。",
+      "split": "synthetic_forward"
+    }
+  ],
+  "tables": [
+    {
+      "id": "threshold_table",
+      "page": 1,
+      "bbox": [
+        0.08870967741935484,
+        0.425,
+        0.9112903225806451,
+        0.65
+      ],
+      "split": "synthetic_forward",
+      "cells": [
+        {
+          "row": 0,
+          "column": 0,
+          "text": "Observation"
+        },
+        {
+          "row": 0,
+          "column": 1,
+          "text": "Threshold"
+        },
+        {
+          "row": 0,
+          "column": 2,
+          "text": "Unit"
+        },
+        {
+          "row": 1,
+          "column": 0,
+          "text": "Baseline"
+        },
+        {
+          "row": 1,
+          "column": 1,
+          "text": "<18.5"
+        },
+        {
+          "row": 1,
+          "column": 2,
+          "text": "kg"
+        },
+        {
+          "row": 2,
+          "column": 0,
+          "text": "Follow-up"
+        },
+        {
+          "row": 2,
+          "column": 1,
+          "text": "40-60"
+        },
+        {
+          "row": 2,
+          "column": 2,
+          "text": "cm"
+        },
+        {
+          "row": 3,
+          "column": 0,
+          "text": "Recovery"
+        },
+        {
+          "row": 3,
+          "column": 1,
+          "text": ">150"
+        },
+        {
+          "row": 3,
+          "column": 2,
+          "text": "seconds"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,4 @@
+interface:
+  display_name: "PDF Semantic OCR"
+  short_description: "Extract and audit complex PDFs with traceable repairs"
+  default_prompt: "Use $pdf-semantic-ocr to extract this PDF, audit representative pages, and prepare traceable learning text."

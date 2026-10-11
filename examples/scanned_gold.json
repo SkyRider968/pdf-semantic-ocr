@@ -1,0 +1,154 @@
+{
+  "pdf_sha256": "516c0a91516a40bec8fc9fc0b87437ceb9b374135faa3840bb15ba7d16cbd33b",
+  "provenance": "Original fixture source declarations; not OCR output",
+  "samples": [
+    {
+      "id": "english_columns",
+      "page": 1,
+      "bbox": [
+        0.05,
+        0.08,
+        0.95,
+        0.2
+      ],
+      "reference": "Strength training improves force production.\nAdaptation depends on repeated practice.\nRecovery changes the response to loading.\nTesting should use a consistent protocol.\nRecord the units beside every measurement.\nCompare results within the same population.",
+      "split": "fixture"
+    },
+    {
+      "id": "chinese_columns",
+      "page": 2,
+      "bbox": [
+        0.05,
+        0.09,
+        0.98,
+        0.23
+      ],
+      "reference": "训练适应来自刺激与恢复的共同作用。\n负荷、训练量和频率需要分别记录。\n正文应按左栏再右栏的顺序阅读。\n评估需要保持测试条件的一致性。\n图中文字不能直接并入正文段落。\n数值、小于号和单位必须完整保留。",
+      "split": "fixture"
+    }
+  ],
+  "tables": [
+    {
+      "id": "merged_header",
+      "page": 1,
+      "bbox": [
+        0.06666666666666667,
+        0.28205128205128205,
+        0.9,
+        0.4666666666666667
+      ],
+      "cells": [
+        {
+          "row": 0,
+          "column": 0,
+          "text": "Training thresholds",
+          "colspan": 3
+        },
+        {
+          "row": 1,
+          "column": 0,
+          "text": "Category"
+        },
+        {
+          "row": 1,
+          "column": 1,
+          "text": "Limit"
+        },
+        {
+          "row": 1,
+          "column": 2,
+          "text": "Unit"
+        },
+        {
+          "row": 2,
+          "column": 0,
+          "text": "Short effort"
+        },
+        {
+          "row": 2,
+          "column": 1,
+          "text": "<100"
+        },
+        {
+          "row": 2,
+          "column": 2,
+          "text": "seconds*"
+        },
+        {
+          "row": 3,
+          "column": 0,
+          "text": "Long effort"
+        },
+        {
+          "row": 3,
+          "column": 1,
+          "text": "150-200"
+        },
+        {
+          "row": 3,
+          "column": 2,
+          "text": "seconds"
+        }
+      ],
+      "split": "fixture"
+    },
+    {
+      "id": "chinese_thresholds",
+      "page": 2,
+      "bbox": [
+        0.06666666666666667,
+        0.3076923076923077,
+        0.9166666666666666,
+        0.46153846153846156
+      ],
+      "split": "fixture",
+      "cells": [
+        {
+          "row": 0,
+          "column": 0,
+          "text": "项目"
+        },
+        {
+          "row": 0,
+          "column": 1,
+          "text": "阈值"
+        },
+        {
+          "row": 0,
+          "column": 2,
+          "text": "单位"
+        },
+        {
+          "row": 1,
+          "column": 0,
+          "text": "测试甲"
+        },
+        {
+          "row": 1,
+          "column": 1,
+          "text": "<40"
+        },
+        {
+          "row": 1,
+          "column": 2,
+          "text": "毫克"
+        },
+        {
+          "row": 2,
+          "column": 0,
+          "text": "测试乙"
+        },
+        {
+          "row": 2,
+          "column": 1,
+          "text": "150"
+        },
+        {
+          "row": 2,
+          "column": 2,
+          "text": "毫克"
+        }
+      ]
+    }
+  ]
+}

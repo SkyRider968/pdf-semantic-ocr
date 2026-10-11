@@ -1,0 +1,147 @@
+{
+  "pdf_sha256": "1dcb449d4d33b0004791a5de42a80b44756e295f63b90e93f66c5950397058e4",
+  "gold_sha256": "df961d218d13bc71d6bc91d4966d11f0fbc80631f096191ca182d36fcdaa4d14",
+  "page_fingerprints": {
+    "1": "17404c144d31729201e6cd63551c00c416c588ca572439af3eacaca188ce4d7e",
+    "2": "485e12b0f3cf9da0892a47eb7f7a53fe6e631fe82a0bae0de2f209bbc2741010",
+    "3": "da2bc0e5205405ddffe002e0bf5ad38f38f21e1d5d7e77b8f94d505730f85cf3",
+    "4": "775a7cbbf706fd15d3255c7197b6c28d927de8414a26e432f59f39078489fe70"
+  },
+  "normalization": "NFKC and whitespace removal; punctuation retained",
+  "text": {
+    "reference_characters": 634,
+    "output_characters": 634,
+    "distance": 0,
+    "deletions": 0,
+    "insertions": 0,
+    "substitutions": 0,
+    "matches": 634,
+    "accuracy_percent": 100.0,
+    "completeness_percent": 100.0,
+    "correct_recall_percent": 100.0
+  },
+  "samples": [
+    {
+      "id": "english_columns",
+      "page": 1,
+      "split": "fixture",
+      "status": "measured",
+      "metrics": {
+        "reference_characters": 223,
+        "output_characters": 223,
+        "distance": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "substitutions": 0,
+        "matches": 223,
+        "accuracy_percent": 100.0,
+        "completeness_percent": 100.0,
+        "correct_recall_percent": 100.0
+      },
+      "reference": "Strength training improves force production.\nAdaptation depends on repeated practice.\nRecovery changes the response to loading.\nTesting should use a consistent protocol.\nRecord the units beside every measurement.\nCompare results within the same population.",
+      "prediction": "Strength training improves force production.Adaptation depends on repeated practice.Recovery changes the response to loading.\nTesting should use a consistent protocol.Record the units beside every measurement.Compare results within the same population."
+    },
+    {
+      "id": "chinese_columns",
+      "page": 2,
+      "split": "fixture",
+      "status": "measured",
+      "metrics": {
+        "reference_characters": 94,
+        "output_characters": 94,
+        "distance": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "substitutions": 0,
+        "matches": 94,
+        "accuracy_percent": 100.0,
+        "completeness_percent": 100.0,
+        "correct_recall_percent": 100.0
+      },
+      "reference": "训练适应来自刺激与恢复的共同作用。\n负荷、训练量和频率需要分别记录。\n正文应按左栏再右栏的顺序阅读。\n评估需要保持测试条件的一致性。\n图中文字不能直接并入正文段落。\n数值、小于号和单位必须完整保留。",
+      "prediction": "训练适应来自刺激与恢复的共同作用。负荷、训练量和频率需要分别记录。正文应按左栏再右栏的顺序阅读。\n评估需要保持测试条件的一致性。图中文字不能直接并入正文段落。数值、小于号和单位必须完整保留。"
+    },
+    {
+      "id": "english_columns",
+      "page": 3,
+      "split": "fixture",
+      "status": "measured",
+      "metrics": {
+        "reference_characters": 223,
+        "output_characters": 223,
+        "distance": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "substitutions": 0,
+        "matches": 223,
+        "accuracy_percent": 100.0,
+        "completeness_percent": 100.0,
+        "correct_recall_percent": 100.0
+      },
+      "reference": "Strength training improves force production.\nAdaptation depends on repeated practice.\nRecovery changes the response to loading.\nTesting should use a consistent protocol.\nRecord the units beside every measurement.\nCompare results within the same population.",
+      "prediction": "Strength training improves force production.Adaptation depends on repeated practice.Recovery changes the response to loading.\nTesting should use a consistent protocol.Record the units beside every measurement.Compare results within the same population."
+    },
+    {
+      "id": "chinese_columns",
+      "page": 4,
+      "split": "fixture",
+      "status": "measured",
+      "metrics": {
+        "reference_characters": 94,
+        "output_characters": 94,
+        "distance": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "substitutions": 0,
+        "matches": 94,
+        "accuracy_percent": 100.0,
+        "completeness_percent": 100.0,
+        "correct_recall_percent": 100.0
+      },
+      "reference": "训练适应来自刺激与恢复的共同作用。\n负荷、训练量和频率需要分别记录。\n正文应按左栏再右栏的顺序阅读。\n评估需要保持测试条件的一致性。\n图中文字不能直接并入正文段落。\n数值、小于号和单位必须完整保留。",
+      "prediction": "训练适应来自刺激与恢复的共同作用。负荷、训练量和频率需要分别记录。正文应按左栏再右栏的顺序阅读。\n评估需要保持测试条件的一致性。图中文字不能直接并入正文段落。数值、小于号和单位必须完整保留。"
+    }
+  ],
+  "table_cells": {
+    "reference": 38,
+    "exact": 38,
+    "exact_percent": 100.0
+  },
+  "tables": [
+    {
+      "id": "merged_header",
+      "page": 1,
+      "split": "fixture",
+      "failures": [],
+      "extra_cell_positions": [],
+      "grid_present": true
+    },
+    {
+      "id": "chinese_thresholds",
+      "page": 2,
+      "split": "fixture",
+      "failures": [],
+      "extra_cell_positions": [],
+      "grid_present": true
+    },
+    {
+      "id": "merged_header",
+      "page": 3,
+      "split": "fixture",
+      "failures": [],
+      "extra_cell_positions": [],
+      "grid_present": true
+    },
+    {
+      "id": "chinese_thresholds",
+      "page": 4,
+      "split": "fixture",
+      "failures": [],
+      "extra_cell_positions": [],
+      "grid_present": true
+    }
+  ],
+  "minimum_percent": 99.0,
+  "sample_status": "PASS",
+  "scope": "Selected source transcriptions only. Development and corrected samples are regressions, not independent holdouts."
+}

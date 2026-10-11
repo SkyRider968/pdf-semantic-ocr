@@ -1,0 +1,60 @@
+{
+  "pdf_sha256": "9aa3a27d3c940662a65fa35ec6e9033427415ed5e95a91ed00738c5611104818",
+  "gold_sha256": "a62066808c80b8bc015fe1e1ca4ddc3f9906e7f424e13f221f472336d492edca",
+  "page_fingerprints": {
+    "1": "917b06c3a01dc2118cde347ee044d6e0926ebca86f2da57f390ea9104174f240"
+  },
+  "normalization": "NFKC and whitespace removal; punctuation retained",
+  "text": {
+    "reference_characters": 144,
+    "output_characters": 144,
+    "distance": 0,
+    "deletions": 0,
+    "insertions": 0,
+    "substitutions": 0,
+    "matches": 144,
+    "accuracy_percent": 100.0,
+    "completeness_percent": 100.0,
+    "correct_recall_percent": 100.0
+  },
+  "samples": [
+    {
+      "id": "mixed_language_paragraphs",
+      "page": 1,
+      "split": "synthetic_forward",
+      "status": "measured",
+      "metrics": {
+        "reference_characters": 144,
+        "output_characters": 144,
+        "distance": 0,
+        "deletions": 0,
+        "insertions": 0,
+        "substitutions": 0,
+        "matches": 144,
+        "accuracy_percent": 100.0,
+        "completeness_percent": 100.0,
+        "correct_recall_percent": 100.0
+      },
+      "reference": "A useful record separates observations from conclusions.\nEvery correction needs a location and an explicit reason.\n工具核验关注文字是否遗漏，以及关系是否正确。\n抽检成绩只代表样本，不能证明每一页都完全正确。",
+      "prediction": "A useful record separates observations from conclusions.\nEvery correction needs a location and an explicit reason.\n工具核验关注文字是否遗漏，以及关系是否正确。\n抽检成绩只代表样本，不能证明每一页都完全正确。"
+    }
+  ],
+  "table_cells": {
+    "reference": 12,
+    "exact": 12,
+    "exact_percent": 100.0
+  },
+  "tables": [
+    {
+      "id": "threshold_table",
+      "page": 1,
+      "split": "synthetic_forward",
+      "failures": [],
+      "extra_cell_positions": [],
+      "grid_present": true
+    }
+  ],
+  "minimum_percent": 99.0,
+  "sample_status": "PASS",
+  "scope": "Selected source transcriptions only. Development and corrected samples are regressions, not independent holdouts."
+}

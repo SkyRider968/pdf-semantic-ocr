@@ -1,0 +1,40 @@
+[build-system]
+requires = ["hatchling>=1.26"]
+build-backend = "hatchling.build"
+
+[project]
+name = "pdf-semantic-ocr"
+version = "0.1.0"
+description = "Traceable PDF text and table extraction with evidence gates and targeted repairs"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "AGPL-3.0-or-later"
+license-files = ["LICENSE"]
+authors = [{name = "PDF Semantic OCR contributors"}]
+dependencies = ["PyMuPDF>=1.25,<2", "Pillow>=10", "numpy>=1.24", "opencv-python-headless>=4.9"]
+
+[project.optional-dependencies]
+ocr = ["rapidocr>=3.10,<4", "onnxruntime>=1.19,<2"]
+layout = ["doclayout-yolo==0.0.4", "huggingface-hub>=0.27"]
+mlx = ["mlx-vlm>=0.7.6,<0.8; sys_platform == 'darwin' and platform_machine == 'arm64'"]
+vision = ["pyobjc-framework-Vision>=10; sys_platform == 'darwin'", "pyobjc-framework-Cocoa>=10; sys_platform == 'darwin'"]
+dev = ["pytest>=8", "build>=1.2", "ruff>=0.9", "pyyaml>=6"]
+
+[project.scripts]
+pdf-semantic-ocr = "pdf_semantic_ocr.cli:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/pdf_semantic_ocr"]
+
+[tool.hatch.build.targets.sdist]
+include = ["/src", "/tests", "/examples", "/docs", "/skills", "/scripts", "/README.md", "/LICENSE", "/LICENSES", "/THIRD_PARTY_NOTICES.md", "/pyproject.toml"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 110
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F"]
