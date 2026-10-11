@@ -1,7 +1,8 @@
 # Release validation: 0.1.1
 
-Validated on Apple Silicon macOS, Python 3.12, 2026-10-11. Remote CI has not run:
-GitHub publication still awaits authentication.
+Validated on Apple Silicon macOS, Python 3.12, 2026-10-11. Remote CI results are available separately under
+[GitHub Actions](https://github.com/SkyRider968/pdf-semantic-ocr/actions); local
+measurements below do not substitute for the remote workflow result.
 
 ## Real federal-publication demo
 

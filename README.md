@@ -10,6 +10,9 @@ table relationships and complete figure detection require separate evidence.
 
 中文文档：[使用与验收 SOP](docs/SOP.zh-CN.md)。
 
+[GitHub repository](https://github.com/SkyRider968/pdf-semantic-ocr) ·
+[0.1.1 release](https://github.com/SkyRider968/pdf-semantic-ocr/releases/tag/v0.1.1)
+
 ## Install
 
 Python 3.10+. Open a terminal in the downloaded/cloned source directory, then
@@ -25,6 +28,13 @@ pdf-semantic-ocr doctor
 On Windows, use `py -m venv .venv` and `.venv\Scripts\Activate.ps1` in PowerShell.
 For a downloaded wheel, replace the install command with
 `python -m pip install 'pdf_semantic_ocr-0.1.1-py3-none-any.whl[ocr]'`.
+You can also install the released wheel directly in your activated environment:
+
+```bash
+python -m pip install 'pdf-semantic-ocr[ocr] @ https://github.com/SkyRider968/pdf-semantic-ocr/releases/download/v0.1.1/pdf_semantic_ocr-0.1.1-py3-none-any.whl'
+pdf-semantic-ocr demo --output first-ocr
+```
+
 The public USDA demo is bundled in the wheel. Synthetic examples require the source archive/checkout.
 This release is not currently published on PyPI.
 Digital PDFs with a useful text layer only need `pip install .`.

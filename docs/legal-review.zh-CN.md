@@ -8,7 +8,8 @@
 按当前 AGPL 开源方式发布工具、原创示例及对应源码，未发现明确禁止该发布方式的条款。
 这不等于不存在法务风险。最需要管理的是 AGPL 集成义务和输入文档的版权；
 当前版本不能直接作为“闭源商用集成无许可负担”的产品宣传。
-GitHub 发布仍待账号认证；尚无公开仓库或远端 CI 验收结果。
+GitHub 账号已认证；公开仓库为 [SkyRider968/pdf-semantic-ocr](https://github.com/SkyRider968/pdf-semantic-ocr)。
+远端 CI 状态以该仓库 Actions 的实际运行结果为准。
 
 ## 代码许可
 
