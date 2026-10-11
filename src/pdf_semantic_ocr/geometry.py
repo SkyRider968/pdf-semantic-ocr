@@ -21,7 +21,9 @@ def reading_order(nodes):
     """Recursive whitespace cuts, preserving columns under full-width headings."""
     if len(nodes) < 2:
         return nodes
-    for axis in (1, 0):
+    # A real column gutter takes precedence over small gaps between paragraphs
+    # in different columns. Full-width headings naturally block this first cut.
+    for axis in (0, 1):
         ordered = sorted(nodes, key=lambda n: n["bbox"][axis])
         end = ordered[0]["bbox"][axis + 2]
         cuts = []
@@ -31,7 +33,7 @@ def reading_order(nodes):
                 cuts.append((gap, i))
             end = max(end, node["bbox"][axis + 2])
         if cuts:
-            # Horizontal sections first; the largest vertical gap separates columns.
+            # First horizontal section boundary; widest available column gutter.
             index = cuts[0][1] if axis == 1 else max(cuts)[1]
             return reading_order(ordered[:index]) + reading_order(ordered[index:])
     return sorted(nodes, key=lambda n: (n["bbox"][1], n["bbox"][0]))

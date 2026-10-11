@@ -36,7 +36,10 @@ def region_text(page, region):
 def page_texts(page):
     validate_page(page)
     body, auxiliary, combined = [], [], []
-    for region in reading_order(page["regions"]):
+    # Empty photographs still produce crops, but cannot divide text into false
+    # reading sections when their rectangles cross a column gutter.
+    readable = [r for r in page["regions"] if r["line_ids"] or r.get("grid") or r.get("groups")]
+    for region in reading_order(readable):
         if region["kind"] == "noise":
             continue
         value = region_text(page, region)

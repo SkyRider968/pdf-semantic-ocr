@@ -8,6 +8,7 @@ Consult each upstream license before redistributing or deploying its models.
 | PyMuPDF | Text layer, page rendering, native table geometry | macOS / Linux / Windows |
 | RapidOCR + ONNX Runtime | PP-OCRv5 detection, PP-OCRv6 Chinese/mixed recognition; English PP-OCRv5 | CPU, portable |
 | DocLayout-YOLO | Trained page-region detection | CPU / upstream supported devices |
+| DocLayout ONNX conversion | Same model family through ONNX Runtime; no PyTorch | CPU, portable |
 | Apple Vision | Independent OCR observations | macOS |
 | MLX-VLM + PaddleOCR-VL-1.6 4-bit | Table recognition into OTSL | Apple Silicon macOS |
 
@@ -15,6 +16,22 @@ Layout weights used by `fetch-layout`:
 [juliozhao/DocLayout-YOLO-DocStructBench](https://huggingface.co/juliozhao/DocLayout-YOLO-DocStructBench).
 File: `doclayout_yolo_docstructbench_imgsz1024.pt`.
 You can provide a local weight file; its SHA-256 is included in the run fingerprint.
+
+`demo` downloads the ONNX conversion from
+[wybxc/DocLayout-YOLO-DocStructBench-onnx](https://huggingface.co/wybxc/DocLayout-YOLO-DocStructBench-onnx),
+**pinned** revision `ee7c3d744e5c47c58e267044ac825f95abe69653`, file
+`doclayout_yolo_docstructbench_imgsz1024.onnx` (75,324,598 bytes), SHA-256
+`fece9af02f618b603ff7921ccec6861d13e7e1f9830e091dfb7e8ad9311e5b21`.
+The model card declares Apache-2.0 and identifies the DocLayout base; embedded
+ONNX metadata declares AGPL-3.0. These declarations conflict; this project records
+both and does not assert an unqualified Apache-only clearance. Weights are not
+bundled. The adapter implementation uses ONNX Runtime directly.
+
+English OCR uses a 2048-pixel maximum detection side and detection box threshold
+0.6, compared with the mixed/Chinese threshold 0.5. This reduced icon-stroke false
+positives on the brochure while retaining body words. These are development
+settings, not evidence of completeness on other sources. Recognition confidence
+does not establish whether a region is body or illustration text.
 
 Default MLX model:
 [mlx-community/PaddleOCR-VL-1.6-4bit](https://huggingface.co/mlx-community/PaddleOCR-VL-1.6-4bit).

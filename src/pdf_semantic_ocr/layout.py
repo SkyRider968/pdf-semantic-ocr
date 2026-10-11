@@ -171,6 +171,36 @@ def fallback_text_regions(lines, size):
     return regions
 
 
+def colored_graphic_regions(image, lines, detected):
+    """Find isolated dense color badges missed by the model; never infer their text.
+
+    Conservative supplement for brochure icons, not a general figure detector.
+    A candidate must contain OCR, have substantial non-text height, and avoid
+    every model region. Its OCR remains unchanged and available as figure text.
+    """
+    hsv = cv2.cvtColor(np.array(image.convert("RGB")), cv2.COLOR_RGB2HSV)
+    mask = ((hsv[:, :, 1] > 80) & (hsv[:, :, 2] > 40)).astype(np.uint8) * 255
+    kernel = max(3, round(min(image.size) / 340))
+    mask = cv2.morphologyEx(mask, cv2.MORPH_CLOSE, np.ones((kernel, kernel), np.uint8))
+    _, _, stats, _ = cv2.connectedComponentsWithStats(mask)
+    regions = []
+    width, height = image.size
+    for x, y, w, h, pixels in stats[1:]:
+        if w < width * 0.025 or h < height * 0.03 or pixels / (w * h) < 0.65:
+            continue
+        box = [int(x), int(y), int(x + w), int(y + h)]
+        if area(box) > width * height * 0.1:
+            continue
+        if any(overlap(box, r["bbox"]) / max(1, min(area(box), area(r["bbox"]))) > 0.1
+               for r in detected):
+            continue
+        inside = [line for line in lines if overlap(box, line["bbox"]) / max(1, area(line["bbox"])) > 0.5]
+        if not inside or h < max(line["bbox"][3] - line["bbox"][1] for line in inside) * 2.5:
+            continue
+        regions.append({"kind": "figure", "bbox": box, "method": "isolated_color_badge"})
+    return regions
+
+
 def assign(lines, regions, size):
     for i, region in enumerate(regions):
         region["id"] = f"r{i:03d}"

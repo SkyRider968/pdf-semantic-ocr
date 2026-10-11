@@ -1,0 +1,42 @@
+{
+  "title": "Start Simple With MyPlate Today",
+  "publisher": [
+    "U.S. Department of Agriculture",
+    "U.S. Department of Health and Human Services"
+  ],
+  "publication_date": "2020-12",
+  "retrieved": "2026-10-11",
+  "official_url": "https://www.dietaryguidelines.gov/sites/default/files/2021-03/DGA_2020-2025_StartSimple_withMyPlate_English_color.pdf",
+  "original_pages": 4,
+  "demo_original_page": 2,
+  "input_kind": "Generated image-only derivative of a born-digital federal publication; not a physical paper scan",
+  "rasterization": {
+    "dpi": 200,
+    "encoding": "lossless PNG",
+    "physical_size_points": [
+      612,
+      792
+    ],
+    "native_text_characters": 0
+  },
+  "files": {
+    "official-original.pdf": {
+      "sha256": "e4d041aa6caab2983795fe9a917a169c0a3f7de8d436eba8f9d4c8b15f8222f3",
+      "bytes": 3577358
+    },
+    "image-only.pdf": {
+      "sha256": "f1db498176b0ad12ecd4fe53fc7d693ebbe379b165d17ec18b5ea7a7a37b1e1b",
+      "bytes": 2120780
+    },
+    "body-gold.json": {
+      "sha256": "0bab010c113d575eb3bdb457593c08df9f521896fc5bdcb660a19cddb2e13d15",
+      "bytes": 2495
+    },
+    "auxiliary-gold.json": {
+      "sha256": "3290445fb4cd580c6ad36ac02be14590de4e3f0c4474cc81ab78961c73d6f293",
+      "bytes": 1356
+    }
+  },
+  "rights_note": "Federal agency publication. U.S. government-authored work is generally excluded from U.S. copyright under 17 USC 105; third-party materials and marks can be exceptions. No third-party copyright notice found in these four pages. Attribution preserved; this tool has no USDA/HHS endorsement. Nonprofit status is not the basis of this selection.",
+  "gold_scope": "Complete body of original page 2 plus separately transcribed illustration labels/page marker. Development regression, not independent benchmark. No table on this page."
+}

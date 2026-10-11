@@ -30,7 +30,7 @@ def extraction_arguments(parser):
     parser.add_argument("--dpi", type=int, default=200)
     parser.add_argument("--ocr", choices=["auto", "always", "never"], default="auto")
     parser.add_argument("--ocr-backend", choices=["rapidocr", "vision"], default="rapidocr")
-    parser.add_argument("--layout", choices=["native", "doclayout", "none"], default="native")
+    parser.add_argument("--layout", choices=["native", "doclayout", "doclayout-onnx", "none"], default="native")
     parser.add_argument("--layout-weights", type=Path)
     parser.add_argument("--language", choices=["auto", "en", "zh"], default="auto")
     parser.add_argument("--threads", type=int, default=4)
@@ -41,6 +41,10 @@ def parser():
     p.add_argument("--version", action="version", version=__version__)
     sub = p.add_subparsers(dest="command", required=True)
     sub.add_parser("doctor", help="Show optional engine availability without exposing credentials")
+    q = sub.add_parser("demo", help="OCR a bundled USDA image-only page; evaluate and create an HTML comparison")
+    q.add_argument("--output", type=Path, required=True)
+    q.add_argument("--cache-dir", type=Path, help="Directory for the pinned ONNX layout model")
+    q.add_argument("--layout-weights", type=Path, help="Optional predownloaded pinned ONNX model")
     for name in ("extract", "run"):
         q = sub.add_parser(name, help="Extract PDF" if name == "extract" else "Extract and optionally crosscheck/reconstruct tables")
         extraction_arguments(q)
@@ -88,6 +92,11 @@ def main(argv=None):
                        "dependencies": dependency_versions(), "optional": {
                            name: importlib.util.find_spec(name) is not None for name in
                            ("rapidocr", "doclayout_yolo", "mlx_vlm", "Vision")}})
+        elif args.command == "demo":
+            from .demo import run_demo
+            report = run_demo(args.output, args.cache_dir, args.layout_weights)
+            summarize(report)
+            return 0 if report["demo_status"] == "PASS" else 2
         elif args.command in {"extract", "run"}:
             from .extract import extract
             extract(args.pdf, args.output, pages=args.pages, dpi=args.dpi, ocr=args.ocr,

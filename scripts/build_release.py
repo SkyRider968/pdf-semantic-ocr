@@ -22,7 +22,10 @@ def main():
         z.write(ROOT / "LICENSE", "LICENSE")
     shutil.copyfile(ROOT / "docs/SOP.zh-CN.md", output / "SOP.zh-CN.md")
     shutil.copyfile(ROOT / "docs/validation.md", output / "validation.md")
-    files = sorted(p for p in output.iterdir() if p.is_file() and p.name != "SHA256SUMS")
+    # Older releases may coexist locally; never checksum them as this release.
+    names = {f"pdf_semantic_ocr-{__version__}-py3-none-any.whl",
+             f"pdf_semantic_ocr-{__version__}.tar.gz", archive.name, "SOP.zh-CN.md", "validation.md"}
+    files = sorted(p for p in output.iterdir() if p.is_file() and p.name in names)
     (output / "SHA256SUMS").write_text("".join(
         hashlib.sha256(p.read_bytes()).hexdigest() + "  " + p.name + "\n" for p in files))
     print("Release artifacts: " + ", ".join(p.name for p in files))

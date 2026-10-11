@@ -11,9 +11,10 @@ import pymupdf
 from PIL import Image
 
 from . import __version__
-from .backends import DocLayoutBackend, ocr_backend
+from .backends import DocLayoutBackend, ONNXLayoutBackend, ocr_backend
 from .geometry import area, overlap, union, join_lines
-from .layout import assign, fallback_text_regions, fill_grid, native_figures, native_tables, ruled_grid, ruled_tables
+from .layout import (assign, colored_graphic_regions, fallback_text_regions, fill_grid,
+                     native_figures, native_tables, ruled_grid, ruled_tables)
 from .schema import validate_page
 from .storage import SCHEMA_VERSION, file_hash, fingerprint, parse_pages, read_json, write_json
 
@@ -69,8 +70,8 @@ def extract(pdf: Path, run: Path, *, pages=None, dpi=200, ocr="auto", backend="r
               "language": language, "threads": threads, "tool_version": __version__,
               "implementation_sha256": implementation_hash(),
               "dependencies": dependency_versions(), "weights_sha256": file_hash(Path(weights)) if weights else None}
-    if layout == "doclayout" and not weights:
-        raise ValueError("--layout doclayout requires --layout-weights PATH; see docs/models.md")
+    if layout in {"doclayout", "doclayout-onnx"} and not weights:
+        raise ValueError(f"--layout {layout} requires --layout-weights PATH; see docs/models.md")
     source_hash = file_hash(pdf)
     cache_key = fingerprint({"pdf_sha256": source_hash, "config": config})
     manifest_path = run / "manifest.json"
@@ -89,7 +90,8 @@ def extract(pdf: Path, run: Path, *, pages=None, dpi=200, ocr="auto", backend="r
         run.mkdir(parents=True, exist_ok=True)
         write_json(manifest_path, manifest)
         ocr_engine = None
-        detector = DocLayoutBackend(weights) if layout == "doclayout" else None
+        detector = (DocLayoutBackend(weights) if layout == "doclayout" else
+                    ONNXLayoutBackend(weights) if layout == "doclayout-onnx" else None)
         for number in selected:
             path = run / "pages" / f"{number:04d}.json"
             if path.exists():
@@ -136,6 +138,7 @@ def extract(pdf: Path, run: Path, *, pages=None, dpi=200, ocr="auto", backend="r
                                 min(image.width, line["bbox"][2]), min(image.height, line["bbox"][3])]
             if detector:
                 regions = detector.detect(image)
+                regions.extend(colored_graphic_regions(image, lines, regions))
                 ruled = ruled_tables(image)
                 native = native_tables(page, scale) if not use_ocr else []
                 for region in regions:
@@ -161,6 +164,11 @@ def extract(pdf: Path, run: Path, *, pages=None, dpi=200, ocr="auto", backend="r
             split_regions = []
             for region in regions:
                 source_lines = [by_id[i] for i in region["line_ids"]]
+                if (region["kind"] == "unassigned" and len(source_lines) == 1
+                        and region["bbox"][1] > image.height * 0.95
+                        and re.fullmatch(r"\d{1,4}", source_lines[0]["text"].strip())):
+                    region["kind"] = "page_marker"
+                    region["method"] = "numeric_bottom_margin"
                 if region["kind"] == "text" and len(source_lines) >= 4:
                     middle = image.width / 2
                     left = [line for line in source_lines if line["bbox"][2] < middle - 2]

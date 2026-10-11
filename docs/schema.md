@@ -7,6 +7,10 @@ Each page contains `lines`, `regions`, `original_line_ids` and `revisions`.
 A line has `id`, `text`, `original_text`, `bbox`, `confidence` and `engine`.
 Native text has null confidence: it is not assigned a fabricated 100% confidence.
 A region has `id`, `kind`, `bbox` and `line_ids`.
+`page_marker` preserves an isolated numeric bottom-margin marker in auxiliary text;
+it is a layout classification, not a removed observation.
+`isolated_color_badge` supplements detected figures for dense isolated color icons
+containing OCR; it is conservative and does not establish universal figure coverage.
 
 Table grids contain `row_count`, `column_count`, `cells`, `unassigned_line_ids` and
 `method`. Each cell has zero-based `row`, `column`, positive `rowspan`/`colspan`,

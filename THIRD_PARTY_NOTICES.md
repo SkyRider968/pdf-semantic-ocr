@@ -16,8 +16,9 @@ This project calls upstream libraries; it does not bundle their source or weight
 | PyObjC | https://github.com/ronaldoussoren/pyobjc | MIT; Apple frameworks remain Apple's |
 
 The public fixture text,
-tables and diagrams are original synthetic examples. No copyrighted source-book
-pages or extracts are distributed. The built-in CJK font is used by PyMuPDF to
+tables and diagrams in `examples/` are original synthetic examples. The additional
+USDA/HHS 2020 federal-publication original, raster derivative and attribution
+are described in [demo provenance](docs/demo.md). No user-provided source documents or extracts are distributed. The built-in CJK font is used by PyMuPDF to
 generate fixture pages; no standalone font file is included. These digital fixtures
 embed Droid Sans Fallback Regular, from the Android/Droid fonts distributed with
 MuPDF (Apache-2.0). The font's license is included in `LICENSES/Apache-2.0.txt`.
@@ -31,3 +32,8 @@ are in [the dated review](docs/legal-review.zh-CN.md) and [model provenance](doc
 This table covers the selected primary libraries, not every transitive component
 of future wheels, containers or upstream binary distributions. Preserve their
 bundled license/notice files when redistributing them.
+
+The optional ONNX DocLayout conversion is downloaded from
+`wybxc/DocLayout-YOLO-DocStructBench-onnx`. Its model card declares Apache-2.0;
+embedded ONNX metadata declares AGPL-3.0. Both are recorded in `docs/models.md`.
+The conversion and upstream inference source are not bundled with this release.

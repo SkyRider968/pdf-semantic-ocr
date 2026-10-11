@@ -1,0 +1,66 @@
+{
+  "pdf_sha256": "f1db498176b0ad12ecd4fe53fc7d693ebbe379b165d17ec18b5ea7a7a37b1e1b",
+  "reference_method": "Visual transcription of all visible illustration labels and printed page marker. Photos contain no printed text. Each bbox is source-selected.",
+  "samples": [
+    {
+      "id": "plate-labels",
+      "page": 1,
+      "bbox": [
+        0.06,
+        0.1,
+        0.235,
+        0.22
+      ],
+      "split": "development-regression",
+      "reference": "Dairy Fruits Grains Vegetables Protein MyPlate.gov"
+    },
+    {
+      "id": "fruit-badge",
+      "page": 1,
+      "bbox": [
+        0.055,
+        0.37,
+        0.15,
+        0.48
+      ],
+      "split": "development-regression",
+      "reference": "Fruits"
+    },
+    {
+      "id": "vegetable-badge",
+      "page": 1,
+      "bbox": [
+        0.055,
+        0.57,
+        0.15,
+        0.68
+      ],
+      "split": "development-regression",
+      "reference": "Vegetables"
+    },
+    {
+      "id": "grain-badge",
+      "page": 1,
+      "bbox": [
+        0.055,
+        0.76,
+        0.15,
+        0.88
+      ],
+      "split": "development-regression",
+      "reference": "Grains"
+    },
+    {
+      "id": "page-marker",
+      "page": 1,
+      "bbox": [
+        0.07,
+        0.95,
+        0.105,
+        0.98
+      ],
+      "split": "development-regression",
+      "reference": "2"
+    }
+  ]
+}

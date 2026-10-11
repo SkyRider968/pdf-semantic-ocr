@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 import io
+import ast
 import sys
 
 import numpy as np
@@ -20,7 +21,8 @@ class RapidBackend:
             "Rec.ocr_version": OCRVersion.PPOCRV5 if language == "en" else OCRVersion.PPOCRV6,
             "Rec.model_type": ModelType.MOBILE if language == "en" else ModelType.MEDIUM,
             "Rec.lang_type": LangRec.EN if language == "en" else LangRec.CH,
-            "Global.text_score": 0.3, "Det.limit_side_len": 1536, "Det.limit_type": "max",
+            "Global.text_score": 0.3, "Det.limit_side_len": 2048, "Det.limit_type": "max",
+            "Det.box_thresh": 0.6 if language == "en" else 0.5,
             "EngineConfig.onnxruntime.intra_op_num_threads": threads,
             "EngineConfig.onnxruntime.inter_op_num_threads": 1,
             "Global.log_level": "warning",
@@ -104,6 +106,53 @@ class DocLayoutBackend:
                 continue
             regions.append({"kind": mapping.get(prediction.names[int(box.cls)], "unassigned"),
                             "bbox": rect, "confidence": float(box.conf), "method": "doclayout-yolo"})
+        return regions
+
+class ONNXLayoutBackend:
+    """Run the published DocLayout conversion without a PyTorch installation."""
+    def __init__(self, weights):
+        try:
+            import onnxruntime as ort
+        except ImportError as error:
+            raise ValueError("Install ONNX Runtime with the [ocr] extra") from error
+        options = ort.SessionOptions()
+        options.intra_op_num_threads = 4
+        options.inter_op_num_threads = 1
+        self.engine = ort.InferenceSession(str(weights), options, providers=["CPUExecutionProvider"])
+        self.names = ast.literal_eval(self.engine.get_modelmeta().custom_metadata_map["names"])
+        self.input_name = self.engine.get_inputs()[0].name
+        self.size = 1024
+
+    def detect(self, image):
+        import cv2
+        from .geometry import area, overlap
+        width, height = image.size
+        ratio = min(self.size / width, self.size / height)
+        resized = cv2.resize(np.array(image.convert("RGB")), (round(width * ratio), round(height * ratio)))
+        left = (self.size - resized.shape[1]) // 2
+        top = (self.size - resized.shape[0]) // 2
+        canvas = np.full((self.size, self.size, 3), 114, dtype=np.uint8)
+        canvas[top:top + resized.shape[0], left:left + resized.shape[1]] = resized
+        tensor = canvas.transpose(2, 0, 1)[None].astype(np.float32) / 255.0
+        prediction = self.engine.run(None, {self.input_name: tensor})[0]
+        if prediction.ndim != 3 or prediction.shape[-1] != 6:
+            raise ValueError("Unsupported layout ONNX output; expected batch x detections x 6")
+        mapping = {"plain text": "text", "title": "title", "figure": "figure",
+                   "figure_caption": "figure_caption", "table": "table", "table_caption": "table_caption",
+                   "table_footnote": "table_footnote", "isolate_formula": "formula",
+                   "formula_caption": "figure_caption", "abandon": "unassigned"}
+        regions = []
+        for box in sorted(prediction[0], key=lambda b: -float(b[4])):
+            if not np.isfinite(box).all() or box[4] < 0.25:
+                continue
+            rect = ((box[:4] - np.array([left, top, left, top])) / ratio).tolist()
+            rect = [max(0, rect[0]), max(0, rect[1]), min(width, rect[2]), min(height, rect[3])]
+            if area(rect) <= 0:
+                continue
+            if any(overlap(rect, r["bbox"]) / max(1, min(area(rect), area(r["bbox"]))) > 0.9 for r in regions):
+                continue
+            regions.append({"kind": mapping.get(self.names.get(int(box[5])), "unassigned"),
+                            "bbox": rect, "confidence": float(box[4]), "method": "doclayout-onnx"})
         return regions
 
 

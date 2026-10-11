@@ -1,0 +1,12 @@
+{
+  "pdf_sha256": "f1db498176b0ad12ecd4fe53fc7d693ebbe379b165d17ec18b5ea7a7a37b1e1b",
+  "reference_method": "Official original text blocks sorted vertically; verified against original page 2. Never derived from OCR. Includes every body heading, paragraph and 9 bullets; excludes figure labels and page marker.",
+  "samples": [
+    {
+      "id": "complete-body",
+      "page": 1,
+      "split": "development-regression",
+      "reference": "Make every bite count\nTake a look at your current eating routine. \nPick one or two ways that you can switch to \nchoices today that are rich in nutrition.\nA healthy eating routine can help boost your \nhealth now and in the years to come. \nThink about how your food choices come \ntogether over the course of your day or week \nto help you create a healthy eating routine.\nIt’s important to eat a variety of fruits, vegetables, grains, protein foods, and \ndairy or fortified soy alternatives. Choose options for meals, beverages, \nand snacks that have limited added sugars, saturated fat, and sodium.\nChoose from these simple tips to help you…\nFocus on whole fruits\n•\t Start your day with fruit at breakfast. Top cereal with your favorite seasonal \nfruit, add bananas or chopped apples to pancakes, or mix a spoonful or two \nof raisins into hot oatmeal.\n•\t Keep ready-to-eat fruits in the refrigerator for a quick snack.\n•\t For dinner, chop up a combination of seasonal, frozen, or canned fruits to \nmake a quick fruit salsa to top fish or chicken. Add fruit such as orange \nsections, apple wedges, or grapes to a salad.\nVary your veggies\n•\t Add shredded carrots to the lettuce and tomato in your sandwich, make soup \nfrom the veggies in your vegetable drawer, and snack on raw vegetables.\n•\t Try a stir-fry with fresh or frozen vegetables for a quick meal or easy side dish.\n•\t Pick out a vegetable that the family has not tried and get a new recipe from a \ncookbook, website, supermarket, or friend.\nMake half your grains whole grains\n•\t For breakfast, enjoy a whole-grain-based hot or cold cereal. Consider \ntrying whole-grain puffs or flakes that are new to you—you might discover \na new favorite!\n•\t Instead of sandwich bread, try a whole-grain pita, tortillas, naan or other \nwhole-grain flatbread, sliced breads, or rolls.\n•\t Create your own trail mix with whole-grain cereal or enjoy whole-grain crackers \nwith turkey, hummus, or avocado for a healthy whole-grain snack."
+    }
+  ]
+}

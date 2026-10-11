@@ -51,7 +51,7 @@ def sample_text(page, sample):
             box = [v * page["size"][i % 2] for i, v in enumerate(box)]
         by_id = {line["id"]: line for line in page["lines"]}
         pieces = []
-        for region in reading_order(page["regions"]):
+        for region in reading_order([r for r in page["regions"] if r["line_ids"]]):
             lines = [by_id[i] for i in region["line_ids"]
                      if overlap(by_id[i]["bbox"], box) / max(1, area(by_id[i]["bbox"])) > 0.5]
             if lines:

@@ -1,4 +1,94 @@
-# Release validation: 0.1.0
+# Release validation: 0.1.1
+
+Validated on Apple Silicon macOS, Python 3.12, 2026-10-11. Remote CI has not run:
+GitHub publication still awaits authentication.
+
+## Real federal-publication demo
+
+USDA/HHS **Start Simple With MyPlate Today**, December 2020, original page 2.
+The official original is born digital; the tested input is an explicitly labeled
+200-DPI lossless image-only derivative with zero native text. It is not a physical
+scan. The official original and the derivative are included in the wheel.
+
+| Measured scope | Reference characters | Accuracy | Completeness | Gate |
+| --- | ---: | ---: | ---: | --- |
+| Entire body: all headings, paragraphs and nine tips | 1,611 | 99.255% | 99.379% | ≥99%: PASS |
+| All visible illustration labels and page marker | 68 | 100% | 100% | ≥95%: PASS |
+
+Reference text comes from the official source, visually checked; it is not copied
+from predictions. NFKC/whitespace normalization retains punctuation. The demo was
+used during development, so this is a regression score, not an independent
+benchmark. The residual body errors include a missing article “a”, nine omitted
+bullet glyphs and apostrophe/dash typography substitutions. Body words remain
+in source order, and illustration labels/page number are exported separately.
+No source-derived patches or reference substitution were applied.
+
+The first broad-detector trial misread illustration strokes as extra text and
+failed its auxiliary gate. Tightening English detection from 0.5 to 0.7 removed
+noise but lost body words and failed the body gate. The final 0.6 setting passed
+both declared gates. Trained layout through ONNX, exclusion of empty photos from
+text ordering, column-gutter precedence and a conservative isolated-color-badge
+supplement address the observed classification/ordering failures. These fixes
+do not prove performance on another document.
+
+## Installed-wheel onboarding and runtime
+
+A new virtual environment without system packages installed the wheel with only
+`[ocr]`, then ran from outside the repository with an empty layout cache and
+freshly installed RapidOCR. The 75 MB pinned ONNX layout file and selected
+RapidOCR detector/English recognition weights were downloaded on first use.
+The installed versions were PyMuPDF 1.28.2, RapidOCR 3.10.0, ONNX Runtime 1.31.0,
+OpenCV headless 5.0.0.93 and NumPy 2.5.4. No PyTorch, DocLayout Python library,
+MLX or Apple Vision was installed. Both quality gates passed at the values above.
+
+| Phase | Measured wall time |
+| --- | ---: |
+| New venv + wheel/dependency installation | 7.603 s |
+| First CLI invocation, including model downloads and interpreter/import startup | 92.566 s |
+| Total installation + first demo | 100.169 s |
+| Within the demo: layout preparation/download | 4.252 s |
+| Within the demo: OCR/model setup, export, audit and evaluation | 71.265 s |
+| Development run with cached models, inside demo timer | 7.745 s |
+
+Pip used cached dependency distributions; this does not measure downloading all
+Python dependencies over a cold network. Models were fetched for the new engine
+installation and empty layout cache. Demo timing starts after module imports;
+the outer CLI wall time above includes startup. The five-minute target was met
+locally; it is not a universal installation/runtime guarantee.
+
+## Tests, packaging and evidence
+
+The current complete local suite passed **46 tests**, including both real-inference
+smoke tests. Portable tests pass 44 with those two explicitly skipped. Tests cover
+raster resource/no-text-layer verification, source hashes, uneven columns, empty
+photo interference, badge/heading distinction, ONNX letterboxing and invalid
+outputs, checksum/atomic model cache, network failure cleanup, HTML escaping and
+CLI quality-failure exit status, in addition to the existing extraction/table/repair
+suite. Ruff and skill validation pass. Wheel/sdist contain all five demo resources
+and no user-provided documents, local runs, credentials or model weights. Rebuilding the
+five resources from the official original reproduces every bundled SHA-256.
+
+Run actual-inference checks with:
+
+```bash
+PDF_OCR_SMOKE=1 PDF_DEMO_SMOKE=1 pytest -q
+ruff check src tests examples scripts
+python -m build
+python scripts/build_release.py
+```
+
+The preview was opened and visually checked in the browser. It shows source,
+actual body, auxiliary output and all reference/prediction differences, including
+remaining errors. Engineering PASS remains separate from NOT_CERTIFIED semantic
+acceptance. This single English brochure contains no table; Chinese, merged-table
+and mixed-layout checks remain separate.
+
+The following is the retained 0.1.0 validation record. Its MLX/PyTorch results
+are historical measurements, not reruns of those optional engines for 0.1.1.
+
+---
+
+# Historical validation: 0.1.0
 
 Validated locally on Apple Silicon macOS, Python 3.12, on 2026-10-11.
 Portable tests also run in a fresh virtual environment with no access to the

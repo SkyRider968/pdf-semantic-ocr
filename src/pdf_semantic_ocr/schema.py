@@ -5,7 +5,7 @@ from collections import Counter
 import math
 
 KINDS = {"text", "title", "figure", "figure_caption", "table", "table_caption",
-         "table_footnote", "formula", "unassigned", "noise"}
+         "table_footnote", "formula", "unassigned", "noise", "page_marker"}
 
 
 def validate_bbox(box, size=None):
