@@ -14,7 +14,7 @@ class RapidBackend:
         try:
             from rapidocr import LangRec, ModelType, OCRVersion, RapidOCR
         except ImportError as error:
-            raise ValueError("Install OCR dependencies: pip install 'pdf-semantic-ocr[ocr]'") from error
+            raise ValueError("Install OCR dependencies: pip install '.[ocr]' from the checkout, or install the release wheel with [ocr]") from error
         self.engine = RapidOCR(params={
             "Det.ocr_version": OCRVersion.PPOCRV5, "Det.model_type": ModelType.SERVER,
             "Rec.ocr_version": OCRVersion.PPOCRV5 if language == "en" else OCRVersion.PPOCRV6,
@@ -47,7 +47,7 @@ class VisionBackend:
             import Vision
             import objc
         except ImportError as error:
-            raise ValueError("Install Apple Vision dependencies: pip install 'pdf-semantic-ocr[vision]'") from error
+            raise ValueError("Install Apple Vision dependencies: pip install '.[vision]' from the checkout, or install the release wheel with [vision]") from error
         self.Foundation, self.Vision, self.objc = Foundation, Vision, objc
         self.language = language
 
@@ -85,7 +85,7 @@ class DocLayoutBackend:
             from doclayout_yolo import YOLOv10
             import torch
         except ImportError as error:
-            raise ValueError("Install layout dependencies: pip install 'pdf-semantic-ocr[layout]'") from error
+            raise ValueError("Install layout dependencies: pip install '.[layout]' from the checkout, or install the release wheel with [layout]") from error
         torch.set_num_threads(4)
         self.engine = YOLOv10(str(weights))
 
@@ -115,7 +115,7 @@ class MLXTableBackend:
             from mlx_vlm import load
             from mlx_vlm.prompt_utils import apply_chat_template
         except ImportError as error:
-            raise ValueError("Install table dependencies: pip install 'pdf-semantic-ocr[mlx]'") from error
+            raise ValueError("Install table dependencies: pip install '.[mlx]' from the checkout, or install the release wheel with [mlx]") from error
         self.model_id = model
         self.model, self.processor = load(model)
         self.prompt = apply_chat_template(self.processor, self.model.config, "Table Recognition:", num_images=1)
